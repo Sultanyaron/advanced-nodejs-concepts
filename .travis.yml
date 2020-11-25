@@ -22,4 +22,4 @@ script:
   - nohup npm run start &
   # wait 3 seconds before starting the tests (to wait for the npm start command)
   - sleep 3
-  - npm run test
+  - CI=true npm run test
