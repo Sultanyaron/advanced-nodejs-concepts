@@ -28,7 +28,6 @@ mongoose.Query.prototype.exec = async function () {
   const cacheValue = await client.hget(this.hashKey, key);
 
   if (cacheValue) {
-    console.log("is cached");
     const parsedCachedValue = JSON.parse(cacheValue);
     // incase it's an array we need to transform each result to a mongoose doc
     // if its object we transform it.
@@ -38,7 +37,6 @@ mongoose.Query.prototype.exec = async function () {
     // the new this.model is just like we do new Blog({cacheValue}), this is
     // creating the relevant model to return from the exec function
   }
-  console.log("not cached");
   // otherwise, issue the query (from mongoose) and store the result in redis
   const result = await exec.apply(this, arguments);
   client.hset(this.hashKey, key, JSON.stringify(result));
